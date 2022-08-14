@@ -1,7 +1,7 @@
 # LSVI-UCB
 An implementation of the algorithm presented in the paper 
-[Provably Efficient Reinforcement Learning with Linear Function Approximation](https://arxiv.org/pdf/1907.05388.pdf).
-
+[Provably Efficient Reinforcement Learning with Linear Function Approximation](https://arxiv.org/pdf/1907.05388.pdf).  
+The code was inspired by Alex Ayoub's repo [Exploration-in-RL](https://github.com/aa14k/Exploration-in-RL).
 ### Prerequisites
 ```
 python > 3.8
