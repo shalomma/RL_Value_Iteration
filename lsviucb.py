@@ -1,22 +1,17 @@
 import numpy as np
+from base import BaseAlgorithm
 
 
-class LSVIUCB(object):
+class LSVIUCB(BaseAlgorithm):
     def __init__(self, env, episodes, clip=1.):
-        np.random.seed(42)
-        self.env = env
+        super().__init__(env, episodes)
         self.clip = clip
-        self.K = episodes
-        self.d = self.env.n_states * self.env.n_actions
         self.lam = 1.0
         self.L = self.lam * np.identity(self.d)
         self.L_inv = (1 / self.lam) * np.identity(self.d)
         self.w = np.zeros(self.d)
-        self.Q = np.zeros((self.env.n_states + 1, self.env.n_actions))
         self.features_state_action = self.create_features(self.env.n_states, self.env.n_actions)
-        self.buffer = np.zeros((episodes * self.env.episode_len + 1, 4))
         self.buffer_Q = np.zeros((episodes * self.env.episode_len, self.env.n_states + 1, self.env.n_actions))
-        self.rewards = []
         self.betas = []
         self.sums = np.zeros(self.d)
 
@@ -70,21 +65,9 @@ class LSVIUCB(object):
         second = np.sqrt(2 * np.log(1 / self.p) + np.log(np.linalg.det(self.L) / self.lam))
         return first + second
 
-    def run(self):
-        i = 0
-        for k in range(self.K):
-            self.env.reset()
-            done = False
-            while not done:
-                s = self.env.state
-                a = self.act(s)
-                r, s_, done = self.env.advance(a)
-
-                self.buffer[i, :] = [s, a, r, s_]
-                self.buffer_Q[i, :, :] = self.Q.copy()
-                i += 1
-                self.rewards.append(r)
-            self.update(i)
+    def update_buffers(self, i, s, a, r, s_):
+        super().update_buffers(i, s, a, r, s_)
+        self.buffer_Q[i, :, :] = self.Q.copy()
 
 
 if __name__ == '__main__':
