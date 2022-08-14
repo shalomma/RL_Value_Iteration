@@ -49,6 +49,6 @@ class RiverSwim(TabularMDP):
         for s in range(self.n_states):
             self.P[s, 0, s] = 1.
             self.P[s, 1, min(self.n_states - 1, s + 1)] = 1.
-            self.R[s, 1] = -.01 / (self.n_states - 1)
+            self.R[s, 1] = -.1 / (self.n_states - 1)
 
         self.R[self.n_states - 1, 1] = 1.
