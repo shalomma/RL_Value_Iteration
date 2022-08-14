@@ -59,9 +59,9 @@ class LSVIUCB(object):
         self.Q = q.copy()
 
     def act(self, s):
-        return self.env.argmax(self.Q[s, :])
         # return 1
-        # return np.argmax(self.Q[s, :]) if np.random.uniform() > 0.1 else np.random.randint(0, self.env.n_actions)
+        # return self.env.argmax(self.Q[s, :])
+        return self.env.argmax(self.Q[s, :]) if np.random.uniform() > 0.05 else np.random.randint(0, self.env.n_actions)
 
     def beta(self):
         # iota = np.log(2 * self.d * self.K * self.env.episode_len/self.p)
