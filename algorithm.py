@@ -14,14 +14,15 @@ class LSVIUCB(object):
         self.w = np.zeros(self.d)
         self.Q = np.zeros((self.env.n_states + 1, self.env.n_actions))
         self.features_state_action = self.create_features(self.env.n_states, self.env.n_actions)
-        self.buffer = np.zeros((episodes * self.env.episode_len, 4))
+        self.buffer = np.zeros((episodes * self.env.episode_len + 1, 4))
         self.buffer_Q = np.zeros((episodes * self.env.episode_len, self.env.n_states + 1, self.env.n_actions))
         self.rewards = []
         self.betas = []
         self.sums = np.zeros(self.d)
-        # self.p = delta
-        # self.c = 1. / 100
-        # self.m_2 = .001
+
+        self.p = 0.9
+        self.c = 1. / 100
+        self.m_2 = .001
 
     def create_features(self, n_states, n_actions):
         features = np.zeros((self.env.n_states, self.env.n_actions, self.d))
@@ -34,26 +35,27 @@ class LSVIUCB(object):
 
     def update(self, i):
         q = np.zeros((self.env.n_states + 1, self.env.n_actions))
-        d = self.buffer[i]
-        s, a, r, s_ = int(d[0]), int(d[1]), d[2], int(d[3])
+        for j in range(self.env.episode_len):
+            d = self.buffer[i - j]
+            s, a, r, s_ = int(d[0]), int(d[1]), d[2], int(d[3])
 
-        self.L = self.L + np.outer(self.features_state_action[s, a], self.features_state_action[s, a])
-        self.L_inv = np.linalg.inv(self.L)
-        self.sums = self.sums + self.features_state_action[s, a] * (self.env.R[s, a] + self.Q[s_, :].max())
-        self.w = np.matmul(self.L_inv, self.sums)
+            self.L = self.L + np.outer(self.features_state_action[s, a], self.features_state_action[s, a])
+            self.L_inv = np.linalg.inv(self.L)
+            self.sums = self.sums + self.features_state_action[s, a] * (self.env.R[s, a] + self.Q[s_, :].max())
+            self.w = np.matmul(self.L_inv, self.sums)
 
-        # beta_i = self.beta()
-        beta_i = 5. / 10.
-        self.betas.append(beta_i)
-        for ss in range(self.env.n_states):
-            for aa in range(self.env.n_actions):
-                feature = self.features_state_action[ss, aa]
-                m = np.sqrt(np.dot(np.dot(feature, self.L_inv), feature))
-                bonus = beta_i * m
-                # bonus = 0
-                estimation = np.inner(self.w, feature)
-                # Q[ss, aa] = min(estimation + bonus, self.env.episode_len)
-                q[ss, aa] = min(estimation + bonus, self.clip)
+            # beta_i = self.beta()
+            beta_i = 1. / 10.
+            self.betas.append(beta_i)
+            for ss in range(self.env.n_states):
+                for aa in range(self.env.n_actions):
+                    feature = self.features_state_action[ss, aa]
+                    m = np.sqrt(np.dot(np.dot(feature, self.L_inv), feature))
+                    bonus = beta_i * m
+                    # bonus = 0
+                    estimation = np.inner(self.w, feature)
+                    # Q[ss, aa] = min(estimation + bonus, self.env.episode_len)
+                    q[ss, aa] = min(estimation + bonus, self.clip)
         self.Q = q.copy()
 
     def act(self, s):
@@ -80,9 +82,9 @@ class LSVIUCB(object):
 
                 self.buffer[i, :] = [s, a, r, s_]
                 self.buffer_Q[i, :, :] = self.Q.copy()
-                self.update(i)
                 i += 1
                 self.rewards.append(r)
+            self.update(i)
 
 
 if __name__ == '__main__':
