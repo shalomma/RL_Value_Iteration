@@ -29,8 +29,10 @@ The green marks in the drawing above are the reward of the MDP.
 
 1. Chain length: 4  
 ![Alt text](artifacts/q_4.png)  
+For earlier states it takes more steps to reach their true value.  
 2. Chain length: 5  
-![Alt text](artifacts/q_5.png)
+![Alt text](artifacts/q_5.png)  
+It takes more steps for longer chains to converge.  
 3. Chain length: 6  
 ![Alt text](artifacts/q_6.png)
 
