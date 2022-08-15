@@ -13,13 +13,14 @@ python > 3.8
 numpy==1.23.1
 ```
 
-### MDP - Deterministic RiverSwim
+### MDP - RiverSwim
 
 ![alt text](https://www.researchgate.net/publication/357201959/figure/fig1/AS:1103292767711237@1640056902545/RiverSwim-MDP-solid-and-dotted-arrows-denote-the-transitions-under-actions-right-and.ppm)
-
-Where the actions are:  
+  
+A 1D state cahin with two possible actions:  
 0 - Stay on the same state  
 1 - Move right  
+The rewards are 0 for all action 0 (r(s,a=0)=0), a small negative reward (order of 0.1 or 0.01) for action 1 in all states except of the state before the terminal state, and reward of 1 transitioning to the terminal state.  
 
 ## Experiments
 - State-action values of Q(s, a=1) for different chain lengths.
