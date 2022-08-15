@@ -15,7 +15,7 @@ numpy==1.23.1
 
 ### MDP - RiverSwim
 
-![alt text](https://www.researchgate.net/publication/357201959/figure/fig1/AS:1103292767711237@1640056902545/RiverSwim-MDP-solid-and-dotted-arrows-denote-the-transitions-under-actions-right-and.ppm)
+![alt text](artifacts/8A45B9DB-4DDD-40A0-B0FD-444E976A9CFD.png)
   
 A 1D state cahin with two possible actions:  
 0 - Stay on the same state  
