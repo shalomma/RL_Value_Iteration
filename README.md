@@ -17,10 +17,12 @@ numpy==1.23.1
 
 ![alt text](artifacts/8A45B9DB-4DDD-40A0-B0FD-444E976A9CFD.png)
   
-A 1D state cahin with two possible actions:  
+A **deterministic** 1D state cahin with two possible actions:  
 0 - Stay on the same state  
 1 - Move right  
-The rewards are 0 for all action 0 (r(s,a=0)=0), a small negative reward (order of 0.1 or 0.01) for action 1 in all states except of the state before the terminal state, and reward of 1 transitioning to the terminal state.  
+The rewards are 0 for all 0 actions (r(s,a=0)=0), a small negative reward ("-k" in the drawing, order of 0.1 or 0.01) for 1 actions in all states except of the state before the terminal state, and reward of 1 transitioning to the terminal state.  
+The green marks in the drawing above are the reward of the MDP.
+
 
 ## Experiments
 - State-action values of Q(s, a=1) for different chain lengths.
@@ -44,3 +46,7 @@ Zoom in on the early steps:
 ![Alt text](artifacts/reward_5.png)  
 If we reduce the negative reward in a factor of 10:  
 ![Alt text](artifacts/reward_5_small.png)
+
+
+### Next steps  
+experiment with other VI based algorithms.  
