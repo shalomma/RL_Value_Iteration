@@ -10,7 +10,7 @@ The code was built on top of Alex Ayoub's repo [Exploration-in-RL](https://githu
 
 ### Prerequisites
 ```
-python > 3.8
+python>3.6
 numpy==1.23.1
 ```
 
