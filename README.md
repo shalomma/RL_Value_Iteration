@@ -36,18 +36,20 @@ It takes more steps for longer chains to converge.
 3. Chain length: 6  
 ![Alt text](artifacts/q_6.png)
 
-- For Q(s, a=0), the algorithm failed to reach 0 value for all states:  
+- For Q(s, a=0), the algorithm failed to reach the true expected 0 value for all states:  
 ![Alt text](artifacts/q_4_a0.png)
   
 - Rewards  
 1. Chain length: 4  
 ![Alt text](artifacts/reward_4.png)  
 Zoom in on the early steps:  
-![Alt text](artifacts/reward_4_2000.png)
+![Alt text](artifacts/reward_4_2000.png)  
+First, there's a learning and exploration phase, followed by an exploation phase.  
 2. Chain length: 5  
 ![Alt text](artifacts/reward_5.png)  
 If we reduce the negative reward in a factor of 10:  
-![Alt text](artifacts/reward_5_small.png)
+![Alt text](artifacts/reward_5_small.png)  
+There's an understood phenomena that happens after a long time in the exploaitation phase. It seems like the algorithm completely neglects the optimal policy and mostly gains negative rewards.
 
 
 ### Next steps  
