@@ -1,7 +1,12 @@
 # LSVI-UCB
 An implementation of the algorithm presented in the paper 
 [Provably Efficient Reinforcement Learning with Linear Function Approximation](https://arxiv.org/pdf/1907.05388.pdf).  
-The code was inspired by Alex Ayoub's repo [Exploration-in-RL](https://github.com/aa14k/Exploration-in-RL).
+The code was built on top of Alex Ayoub's repo [Exploration-in-RL](https://github.com/aa14k/Exploration-in-RL).  
+
+### Important notes
+1. The algorithm is very sensetive to the choise of beta  
+2. Only when we added epsilon greedy we managed to get decent results  
+
 ### Prerequisites
 ```
 python > 3.8
@@ -20,7 +25,7 @@ Where the actions are:
 - State-action values of Q(s, a=1) for different chain lengths.
 
 1. Chain length: 4  
-![Alt text](artifacts/q_4.png)
+![Alt text](artifacts/q_4.png)  
 2. Chain length: 5  
 ![Alt text](artifacts/q_5.png)
 3. Chain length: 6  
