@@ -6,6 +6,7 @@ The code was built on top of Alex Ayoub's repo [Exploration-in-RL](https://githu
 ### Important notes
 1. The algorithm is very sensetive to the choise of beta  
 2. Only when we added epsilon greedy we managed to get decent results  
+3. For simplicity, we dropped the dependency in h, as the MDP is detreministic and time-invariant.  
 
 ### Prerequisites
 ```
